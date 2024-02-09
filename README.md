@@ -23,18 +23,21 @@ GitHub Actions allows you to build your app on macOS, Windows and Linux without 
      release:
        runs-on: ${{ matrix.os }}
 
+       permissions:
+         contents: write
+   
        strategy:
          matrix:
            os: [macos-latest, ubuntu-latest, windows-latest]
 
        steps:
          - name: Check out Git repository
-           uses: actions/checkout@v1
+           uses: actions/checkout@v3
 
          - name: Install Node.js, NPM and Yarn
-           uses: actions/setup-node@v1
+           uses: actions/setup-node@v3
            with:
-             node-version: 10
+             node-version: 20
 
          - name: Build/release Electron app
            uses: samuelmeuli/action-electron-builder@v1
