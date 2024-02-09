@@ -131,6 +131,7 @@ const runAction = () => {
 		try {
 			if (platform === "windows") {
 				run(`${useNpm ? "npx --no-install" : "yarn run"} ${cmd} --win squirrel ${release ? "--publish always" : ""} ${args}`, appRoot,);
+				break;
 			}
 			run(`${useNpm ? "npx --no-install" : "yarn run"} ${cmd} --${platform} ${release ? "--publish always" : ""} ${args}`, appRoot,);
 			break;
