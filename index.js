@@ -29,6 +29,8 @@ const getPlatform = () => {
 			return "mac";
 		case "win32":
 			return "windows";
+		case "nupkg":
+			return "squirrel";
 		default:
 			return "linux";
 	}
@@ -129,12 +131,11 @@ const runAction = () => {
 	const cmd = useVueCli ? "vue-cli-service electron:build" : "electron-builder";
 	for (let i = 0; i < maxAttempts; i += 1) {
 		try {
-			run(
-				`${useNpm ? "npx --no-install" : "yarn run"} ${cmd} --${platform} ${
-					release ? "--publish always" : ""
-				} ${args}`,
-				appRoot,
-			);
+			if (platform === "squirrel") {
+				run(`${useNpm ? "npx --no-install" : "yarn run"} ${cmd} --win squirrel ${release ? "--publish always" : ""} ${args}`, appRoot,);
+			  break;
+			}
+			run(`${useNpm ? "npx --no-install" : "yarn run"} ${cmd} --${platform} ${release ? "--publish always" : ""} ${args}`, appRoot,);
 			break;
 		} catch (err) {
 			if (i < maxAttempts - 1) {
