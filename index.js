@@ -69,16 +69,10 @@ const runAction = () => {
 	const pkgRoot = getInput("package_root", true);
 	const buildScriptName = getInput("build_script_name", true);
 	const skipBuild = getInput("skip_build") === "true";
-	const skipAction = getInput("skip_action") === "true";
 	const useVueCli = getInput("use_vue_cli") === "true";
 	const args = getInput("args") || "";
 	const maxAttempts = Number(getInput("max_attempts") || "1");
 
-
-	if(skipAction){
-		log("Terminating action as skipAction is set");
-		exit;
-	}
 	
 	// TODO: Deprecated option, remove in v2.0. `electron-builder` always requires a `package.json` in
 	// the same directory as the Electron app, so the `package_root` option should be used instead
